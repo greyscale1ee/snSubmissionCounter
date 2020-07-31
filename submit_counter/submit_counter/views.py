@@ -18,7 +18,7 @@ def text_read(filename):
     return content
 
 
-token = text_read("G:\\code\\py\\submit counter\\auth_code.txt")
+token = text_read("auth_code.txt")
 url = "https://snrsnr.com/api/getDataView"
 headers = {"Accept": "application/json, text/plain, */*", 
         "Accept-Encoding": "gzip, deflate, br", 
@@ -35,7 +35,7 @@ headers = {"Accept": "application/json, text/plain, */*",
         "Sec-Fetch-Site": "same-origin", 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"}
 
-def get(type):         ## 主程序
+def get(type):
     respond = requests.get(url, headers = headers)
     respond.encoding = "utf-8"
 
@@ -54,16 +54,18 @@ def run(request):
     waiting = get("noAudit")
     unpassed = get("noPass")
     passed = get("pass")
+    waiting_recheck = get("noRecheck")
     rate = round(passed / (unpassed + passed) * 100)
 
-    content = [waiting, unpassed, passed, rate]
+    content = [waiting, unpassed, passed, rate, waiting_recheck]
     return render(request, "fontend.html", {"content": content})
 
 def refresh(request):
     waiting = get("noAudit")
     unpassed = get("noPass")
     passed = get("pass")
+    waiting_recheck = get("noRecheck")
     rate = str(round(int(passed) / (int(unpassed) + int(passed)) * 100))
 
-    content = [waiting, ",", unpassed, ",", passed, ",", rate]
+    content = [waiting, ",", unpassed, ",", passed, ",", rate, ",", waiting_recheck]
     return HttpResponse(content)
