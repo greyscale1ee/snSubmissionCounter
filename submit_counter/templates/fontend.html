@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=414,user-scalable=0">
+        <title>counter</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            
+            html,
+            body {
+                width: 100%;
+            }
+            
+            .container {
+                margin: 100px auto;
+            }
+            
+            .container div {
+                margin-left: 10px;
+                display: block;
+                height: 45px;
+                margin-top: 10px;
+                margin-right: 10px;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <button>run</button>
+        <div id="waiting">{{ content }}</div>
+		
+        <div class="container">
+            <div class="scroll-number-0", style="color: dodgerblue;"></div>
+            <div class="scroll-number-1", style="color:rgb(245, 34, 45);"></div>
+            <div class="scroll-number-2", style="color:rgb(82, 196, 26);"></div>
+            <div class="scroll-number-3", style="color:rgb(38, 38, 38);"></div> 
+        </div>
+ 
+        {% load static %}
+        <script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/gScrollNumber.js" %}"></script>
+
+        <script>
+            // 初始化数字滚动对象
+            // #1
+            var scrollNumber0 = new gScrollNumber(".scroll-number-0", {
+                width: 29,
+                fontSize: 50,
+                autoSizeContainerWidth: true, // 自动计算容器宽度
+            });
+
+            // #2
+            var scrollNumber1 = new gScrollNumber(".scroll-number-1", {
+                width: 29,
+                fontSize: 50,
+                autoSizeContainerWidth: true, // 自动计算容器宽度
+            });
+
+            // #3
+            var scrollNumber2 = new gScrollNumber(".scroll-number-2", {
+                width: 29,
+                fontSize: 50,
+                autoSizeContainerWidth: true, // 自动计算容器宽度
+            });
+
+            // #4
+            var scrollNumber3 = new gScrollNumber(".scroll-number-3", {
+                width: 29,
+                fontSize: 50,
+                autoSizeContainerWidth: true, // 自动计算容器宽度
+            });
+
+            /* sleep()暂停函数 */                        
+            // function sleep(d){
+            //     for(var t = Date.now();Date.now() - t <= d;);
+            // }
+            
+            var value0;
+            value0 = {{ content|safe }};
+            scrollNumber0.run(value0[0]);
+            scrollNumber1.run(value0[1]);
+            scrollNumber2.run(value0[2]);
+            scrollNumber3.run(value0[3]);
+
+            
+            function refresh1() {
+                $.ajax({                                                 //调用ajax
+		            url:"{% url "refresh" %}",                               //发出请求地址
+		            success:function(result) {
+                        $("#waiting").html(result);
+                        value0 = document.getElementById("waiting").innerText.split(",");
+                        scrollNumber0.run(value0[0]);
+                        scrollNumber1.run(value0[1]);
+                        scrollNumber2.run(value0[2]);
+                        scrollNumber3.run(value0[3]);
+                    },
+                    // 服务器响应后执行函数(success:)
+                })
+            }
+
+
+            $(document).ready(function() {                                       //元素加载完成之后，绑定事件 
+                $("button").click(function() {                                   //按钮点击
+                    function refresh() {
+                        refresh1();
+                    }  
+                    setInterval(refresh, 2500);
+	            });
+            });
+
+        </script>
+    </body>
+
+</html>
