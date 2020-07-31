@@ -1,5 +1,5 @@
-## SN Submition Counter
- Visualize submition information for [snrsnr.com](https://snrsnr.com "snrsnr.com")(Soul Notes Records), using [Django framework](https://github.com/django/django "Django").
+## SN Submission Counter
+ Visualize submission information for [snrsnr.com](https://snrsnr.com "snrsnr.com")(Soul Notes Records), using [Django framework](https://github.com/django/django "Django").
  
 #### to use
 - Run `submit_counter/run.bat`
