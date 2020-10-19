@@ -1,4 +1,4 @@
-## SN Submition Counter
+## SN Submission Counter
  Visualize submition information for [snrsnr.com](https://snrsnr.com "snrsnr.com")(Soul Notes Records), using [Django framework](https://github.com/django/django "Django").
  
 #### to use
