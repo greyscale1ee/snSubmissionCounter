@@ -8,6 +8,6 @@
 
 	or `submit_counter/manage.py` with augument `runserver 0.0.0.0:port`
 
--Go to `localhost:port` in browser
+- Go to `localhost:port` in browser
 
 - Click "run" to see dynamic information
